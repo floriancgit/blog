@@ -108,6 +108,12 @@ for each(var record in records.getElements()){
 ```js
 ```
 
+## JS: Import libraries
+```js
+loadLibrary(<namespace>:<name>);
+loadLibrary('xxx:yyy');
+```
+
 ## JS: Data Quality Management (DQM) with XTK expression
 ```js
 var xtkFields = ['@email', '@mobilePhone', '@phone', '@firstName', '@lastName', '@middleName', ];
@@ -152,8 +158,22 @@ Case(
 )
 ```
 
+## JS: JSON
+```js
+// Get the object you want to print
+var myObject = {
+  name: "Example Object",
+  property1: "value1",
+  property2: 123,
+  property3: true
+};
+
+// Convert the object to a JSON string
+var jsonString = JSON.stringify(myObject, null, 2); // Use null and 2 for pretty printing
+```
+
 ## JS: Dates
-```javascript
+```js
 formatDate(getCurrentDate(), '%4Y%2M%2D-%2H%2N%2S'); // "20190430-150837" for folder names
 
 <%= formatDate(getCurrentDate(), '%4Y%2M') %> // "202005" for delivery labels [scenario/@useLabelScript]
