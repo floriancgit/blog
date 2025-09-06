@@ -36,6 +36,8 @@ $ id # current user info
 uid=1004(user-name) gid=1005(main-group-name) groups=1005(main-group-name),33(www-data),998(other-group)
 $ who #logged-in users
 debian   pts/0        Sep  6 00:05 (2603:7000:2bf0:7880:d916:5c9:6f53:f767)
+$ find /home -name ".bash_history" -exec cat {} \; # history of all users
+pwd & ls
 ```
 
 ### Instance
