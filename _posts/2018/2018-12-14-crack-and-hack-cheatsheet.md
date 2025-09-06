@@ -29,9 +29,17 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 - [framapad](https://framapad.org/abc/en/) Collaborative text editor
 
 ## Server enumeration
+
+### Users
 ```bash
 $ id # current user info
 uid=1004(user-name) gid=1005(main-group-name) groups=1005(main-group-name),33(www-data),998(other-group)
+$ who #logged-in users
+debian   pts/0        Sep  6 00:05 (2603:7000:2bf0:7880:d916:5c9:6f53:f767)
+```
+
+### Instance
+```bash
 $ cat /etc/issue # distrib generic name, common on all distrib
 Debian GNU/Linux 8
 $ cat /etc/*-release # distrib details, name may vary, hence *
@@ -40,6 +48,66 @@ NAME="Debian GNU/Linux"
 PRETTY_NAME="Debian GNU/Linux 8 (jessie)"
 $ uname -a # Linux kernel info 32/64 bits
 Linux hostname 3.16.0-4-amd64 \#1 SMP Debian 3.16.7-ckt25-1 (2016-03-06) x86_64 GNU/Linux
+$ lsb_release -a
+Distributor ID: Debian
+Description:    Debian GNU/Linux 12 (bookworm)
+Release:        12
+Codename:       bookworm
+$ env
+SHELL=/bin/bash
+HOME=/home/debian
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+```
+
+### Network
+```bash
+$ ss -tulnp # list open ports
+Netid         State          Recv-Q         Send-Q                     Local Address:Port                   Peer Address:Port         Process
+tcp           LISTEN         0              128                              0.0.0.0:22                          0.0.0.0:*
+$ dpkg -l | grep antivirus # check antivirus
+$ dpkg -l | grep clamav
+$ iptables -L -n -v # check firewall
+$ ufw status
+$ ip a
+```
+
+### Services
+```bash
+$ systemctl list-units --type=service --state=running # services
+  UNIT                        LOAD   ACTIVE SUB     DESCRIPTION                  
+  containerd.service          loaded active running containerd container runtime
+  dbus.service                loaded active running D-Bus System Message Bus
+  docker.service              loaded active running Docker Application Container Engine
+$ crontab -l
+```
+
+### Virtualization
+```bash
+$ docker --version
+Docker version 28.0.4, build b8034c0
+$ systemctl status docker
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2025-08-13 12:52:34 UTC; 3 weeks 2 days ago
+$ docker ps -a
+CONTAINER ID   IMAGE         COMMAND    CREATED       STATUS                   PORTS     NAMES
+579cc552989f   hello-world   "/hello"   3 weeks ago   Exited (0) 3 weeks ago             elated_edison
+```
+
+### Programming
+```bash
+$ which python python3
+/usr/bin/python3
+$ which perl
+/usr/bin/perl
+$ which node npm
+$ which ruby php java javac
+$ which go rustc lua
+$ which bash zsh
+/usr/bin/bash
+$ which vim nano code
+/usr/bin/vim
+/usr/bin/nano
 ```
 
 *Source: https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/*
