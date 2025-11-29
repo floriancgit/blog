@@ -16,12 +16,15 @@ Excerpt here...
 - `GET /r/config`
 
 - Response
+
 ```xml
+404
 ```
 
 ## Logon
 
 - `POST /nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:session#Logon`
+
 ```xml
 <?xml version='1.0'?>
 <SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
@@ -43,6 +46,7 @@ Excerpt here...
 ```
 
 - Response
+
 ```xml
 <?xml version='1.0'?>
 <SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
@@ -103,6 +107,7 @@ Excerpt here...
 ## GetDirtyCacheEntities
 
 - POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetDirtyCacheEntities`
+
 ```xml
 <?xml version='1.0'?>
 <SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
@@ -134,6 +139,7 @@ Excerpt here...
 ```
 
 - Response
+
 ```xml
 <?xml version='1.0'?>
 <SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
@@ -156,6 +162,7 @@ Excerpt here...
 - `GET /xtk/jsp/zoneinfo.jsp?name=America%2FNew_York`
 
 - Response
+
 ```xml
 TZif2
 ```
@@ -163,6 +170,7 @@ TZif2
 ## UseScrollBar
 
 - POST xx with `SOAPAction: xtk:session#GetOption`
+
 ```xml
 <?xml version='1.0'?>
 <SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
@@ -179,6 +187,7 @@ TZif2
 ```
 
 - Response
+
 ```xml
 <?xml version='1.0'?>
 <SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
@@ -215,11 +224,13 @@ TZif2
 
 - Response
 ```xml
+<?xml version='1.0'?><SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ns='urn:xtk:session' xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/'><SOAP-ENV:Body><GetOptionResponse xmlns='urn:xtk:session' SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'><pstrValue xsi:type='xsd:string'></pstrValue><pbtType xsi:type='xsd:byte'>0</pbtType></GetOptionResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>
 ```
 
 ## Get x
 
 - POST xx with `SOAPAction: xtk:queryDef#ExecuteQuery`
+
 ```xml
 <?xml version='1.0'?>
 <SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
@@ -279,6 +290,7 @@ TZif2
 ```
 
 - Response
+
 ```xml
 <?xml version='1.0'?>
 <SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
@@ -590,6 +602,7 @@ TZif2
 ## Get x
 
 - POST xx with `SOAPAction: xtk:queryDef#ExecuteQuery`
+
 ```xml
 <?xml version='1.0'?>
 <SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
@@ -620,6 +633,7 @@ TZif2
 ## Get x
 
 - POST xx with `SOAPAction: xtk:session#GetOption`
+
 ```xml
 <?xml version='1.0'?>
 <SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
