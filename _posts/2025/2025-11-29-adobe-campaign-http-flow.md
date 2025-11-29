@@ -223,68 +223,43 @@ TZif2
 ```
 
 - Response
-```xml
-<?xml version='1.0'?><SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ns='urn:xtk:session' xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/'><SOAP-ENV:Body><GetOptionResponse xmlns='urn:xtk:session' SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'><pstrValue xsi:type='xsd:string'></pstrValue><pbtType xsi:type='xsd:byte'>0</pbtType></GetOptionResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>
-```
-
-## Get x
-
-- POST xx with `SOAPAction: xtk:queryDef#ExecuteQuery`
 
 ```xml
 <?xml version='1.0'?>
 <SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
-    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ns='urn:xtk:queryDef'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ns='urn:xtk:session'
     xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/'>
     <SOAP-ENV:Body>
-        <ExecuteQuery xmlns='urn:xtk:queryDef'
+        <GetOptionResponse xmlns='urn:xtk:session'
+            SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'>
+            <pstrValue xsi:type='xsd:string'></pstrValue>
+            <pbtType xsi:type='xsd:byte'>0</pbtType>
+        </GetOptionResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+```
+
+## Get folders when already logged in (with cache)
+
+- POST xx with `SOAPAction: xtk:folder#LoadChildrenWithPath`
+
+```xml
+<?xml version='1.0'?>
+<SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ns='urn:xtk:folder'
+    xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/'>
+    <SOAP-ENV:Body>
+        <LoadChildrenWithPath xmlns='urn:xtk:folder'
             SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'>
             <__sessiontoken xsi:type='xsd:string'></__sessiontoken>
-            <entity xsi:type='ns:Element'
-                SOAP-ENV:encodingStyle='http://xml.apache.org/xml-soap/literalxml'>
-                <queryDef operation="select" schema="xtk:queryFilter" startPath="/"
-                    xtkschema="xtk:queryDef">
-                    <select>
-                        <node expr="@id" />
-                        <node expr="@name" />
-                        <node expr="@label" />
-                        <node expr="@hasForm" />
-                        <node expr="@default" />
-                        <node expr="@startPath" />
-                        <node expr="@sqlTable" />
-                        <node expr="[where/@displayFilter]" />
-                        <node expr="[where/@extendedSchema]" />
-                        <node expr="[where/@forceHint]" />
-                        <node expr="[where/@filterName]" />
-                        <node anyType="true" expr="[where/condition]" noComputeString="true" />
-                        <node anyType="true" expr="[where/ctx]" />
-                        <node expr="[where/@filteringSchema]" />
-                        <node anyType="true" expr="form" />
-                        <node expr="@img" />
-                        <node expr="@shortCut" />
-                        <node expr="@main" />
-                        <node expr="@noStack" />
-                        <node expr="@visibleFilterSchema" />
-                        <node expr="@visibleFilterExpr" />
-                        <node expr="[folder/@fullName]" />
-                        <node expr="[folder/@label]" />
-                        <node expr="[folder/@id]" />
-                        <node expr="[folder/parent/@fullName]" />
-                        <node expr="[folder/parent/@model]" />
-                        <node expr="[folder/parent/@id]" />
-                    </select>
-                    <where>
-                        <condition enabledIf=""
-                            expr="(@schema = 'xtk:schema' OR @sqlTable = 'XtkEntity') AND (@shared = true OR [@createdBy-id] = 1059)" />
-                    </where>
-                    <orderBy>
-                        <node expr="[folder/parent/@fullName]" />
-                        <node expr="[folder/@order]" />
-                        <node expr="@label" />
-                    </orderBy>
-                </queryDef>
-            </entity>
-        </ExecuteQuery>
+            <strParentKey xsi:type='xsd:string'></strParentKey>
+            <strFolderFilter xsi:type='xsd:string'></strFolderFilter>
+            <bWriteAccess xsi:type='xsd:boolean'>false</bWriteAccess>
+            <strFullName xsi:type='xsd:string'></strFullName>
+            <strPath xsi:type='xsd:string'>
+                xtkAdministration/xtkParameters/xtkPackageManagement/xtkSpecFile</strPath>
+            <bSort xsi:type='xsd:boolean'>false</bSort>
+        </LoadChildrenWithPath>
     </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>
 ```
@@ -599,7 +574,218 @@ TZif2
 </SOAP-ENV:Envelope>
 ```
 
-## Get x
+## Get folders for first login (or without cache)
+
+- POST `SOAPAction: xtk:persist#GetEntityIfMoreRecent`
+
+```xml
+<?xml version='1.0'?>
+<SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ns='urn:xtk:persist'
+    xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/'>
+    <SOAP-ENV:Body>
+        <GetEntityIfMoreRecent xmlns='urn:xtk:persist'
+            SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'>
+            <__sessiontoken xsi:type='xsd:string'></__sessiontoken>
+            <strPk xsi:type='xsd:string'>xtk:navtree|xtk:merged</strPk>
+            <strMd5 xsi:type='xsd:string'></strMd5>
+            <bMustExist xsi:type='xsd:boolean'>false</bMustExist>
+        </GetEntityIfMoreRecent>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+```
+
+- Response
+
+```xml
+<?xml version='1.0'?>
+<SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ns='urn:wpp:default'
+    xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/'>
+    <SOAP-ENV:Body>
+        <GetEntityIfMoreRecentResponse xmlns='urn:wpp:default'
+            SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'>
+            <pdomDoc xsi:type='ns:Element'
+                SOAP-ENV:encodingStyle='http://xml.apache.org/xml-soap/literalxml'>
+                <navtree _cs="Unofficial ACC: Core (xtk)" created="2024-09-22 02:06:09.300Z"
+                    createdBy-id="1059" dependsOn="xtk:navtree" entitySchema="xtk:navtree"
+                    img="nl:folders.png" label="Unofficial ACC: Core"
+                    lastModified="2024-09-22 02:19:16.337Z" md5="B26FF8A8A00AB86F9E4A817FF5FA43FD"
+                    modifiedBy-id="1059" name="merged" namespace="xtk" xtkschema="xtk:navtree">
+                    <!-- rights definition -->
+                    <rights>
+                        <rightModel global="true" label="Read data" name="read" />
+                        <rightModel global="true" label="Write data" name="write" />
+                        <rightModel global="true" label="Delete Data" name="delete" />
+
+                        <rightModel label="Generate content" name="generate" />
+                    </rights>
+
+
+                    <commands>
+                        <!-- Start, Pause, Stop commands -->
+                        <command desc="Start the workflow instance"
+                            enabledIf="EV(@state, 'edit', 'stopped', 'paused')"
+                            img="nms:difplay.png" label="Start" lib="true" name="startWorkflow"
+                            notVisibleInForm="true" refreshView="true" rights="workflow">
+                            <soapCall name="Start" service="xtk:workflow" />
+                        </command>
+                        <command desc="Pause the workflow instance"
+                            enabledIf="EV(@state, 'started', 'resuming')" img="nms:difpause.png"
+                            label="Pause" lib="true" name="pauseWorkflow" notVisibleInForm="true"
+                            refreshView="true" rights="workflow">
+                            <soapCall name="Pause" service="xtk:workflow" />
+                        </command>
+[...]
+                    </commands>
+
+                        <model img="xtk:admin.png" label="Administration" name="admin" order="10">
+                            <nodeModel hiddenCommands="adbnew, adbdelete, adbDup, adbDupTo"
+                                img="xtk:audittrail.png" label="AuditTrail" name="xtkAuditTrail">
+                                <view hiddenCommands="adbnew, adbdelete, adbDup, adbDupTo"
+                                    name="listdet" schema="xtk:audit" type="listdet">
+                                    <columns>
+                                        <node xpath="@entityName" />
+                                        <node xpath="@entityType" />
+                                        <node xpath="@actionType" />
+                                        <node xpath="@changedDate" />
+                                        <node xpath="@changedBy" />
+                                        <node xpath="@entityId" />
+                                    </columns>
+                                    <orderBy>
+                                        <node expr="@changedDate" sortDesc="true" />
+                                    </orderBy>
+                                </view>
+                            </nodeModel>
+
+                            <!-- NEO-17142 Start workflow monitoring changes-->
+                            <nodeModel folderLink="folder"
+                                hiddenCommands="adbnew, adbdelete, adbDup, adbDupTo"
+                                img="xtk:workflowJob.png" label="Workflows Status"
+                                name="xtkWorkflowsStatus" />
+                            <nodeModel folderLink="folder"
+                                hiddenCommands="adbnew, adbdelete, adbDup, adbDupTo"
+                                img="xtk:workflow/status-started.png" label="Running Workflows"
+                                name="xtkRunningWorkflow">
+                                <view hiddenCommands="adbnew, adbdelete, adbDup, adbDupTo"
+                                    name="listdet" schema="xtk:workflow" type="listdet">
+                                    <columns>
+                                        <node xpath="@label" />
+                                        <node xpath="@internalName" />
+                                        <node xpath="@state" />
+                                        <node xpath="@failed" />
+                                        <node xpath="@processDate" />
+                                        <node xpath="@nextProcessingDate" />
+                                    </columns>
+                                    <orderBy>
+                                        <node expr="@lastModified" sortDesc="true" />
+                                    </orderBy>
+                                    <sysFilter>
+                                        <condition expr="@state = 11" />
+                                        <condition expr="@processId &lt;&gt; 0" />
+                                    </sysFilter>
+                                </view>
+                            </nodeModel>
+[...]
+                    </model>
+
+
+                    <views>
+                        <!-- Detail -->
+                        <view editSchema="xtk:report" name="editReport" type="detail" />
+                        <view editSchema="xtk:workflow" jssp="xtk:workflow" name="workflow"
+                            type="detail" />
+                        <view editParam="dock=0" editSchema="xtk:operator" jssp="xtk:operator"
+                            name="operator" type="detail" />
+                        <view editForm="xtk:import" editParam="dock=0" editSchema="xtk:dataTransfer"
+                            label="Import" name="import" type="detail" />
+                        <view editForm="xtk:export" editParam="dock=0" editSchema="xtk:dataTransfer"
+                            label="Export" name="export" type="detail" />
+                        <view img="nlui-icon-production" jssp="xtk:production"
+                            label="Instance monitoring" name="supervision" />
+
+                        <!-- Creation -->
+                        <view editForm="xtk:newWorkflow"
+                            editParam="dock=0&amp;notifyPathList=/tmp/@folderId|0&amp;modal=1&amp;dockForm=xtk:workflow"
+                            editSchema="xtk:workflow" img="nlui-icon-workflow"
+                            label="Targeting workflow" name="newWorkflow" type="creation" />
+                        <view editForm="xtk:import"
+                            editParam="dock=0&amp;notifyPathList=/tmp/@newFromWebApp|1"
+                            editSchema="xtk:dataTransfer" img="nlui-img-xtk-import" label="Import"
+                            name="newImport" />
+                        <view editForm="xtk:export"
+                            editParam="dock=0&amp;notifyPathList=/tmp/@newFromWebApp|1"
+                            editSchema="xtk:dataTransfer" img="nlui-img-xtk-export" label="Export"
+                            name="newExport" />
+[...]
+                    </views>
+
+                    <node img="xtk:navroot.png" label="Root" name="root" />
+
+                    <menu name="main"> <!-- Universes -->
+                        <!-- Remove and generate it from the list of contexts? -->
+                        <command applicableIf="HasNamedRight('admin')" label="Monitoring"
+                            name="supervision" order="20" view="supervision" />
+                        <command label="Reports" name="reports" order="30" view="reports" />
+                        <command img="nlui-icon-inverse ui-icon-home" name="home" order="0"
+                            view="home" />
+                        <command label="Campaigns" name="campaign" order="1" view="campaign" />
+                        <command label="Profiles and targets" name="datamart" order="10"
+                            view="datamart" />
+                    </menu>
+
+                    <universes>
+                        <universe label="Supervision dashboard" name="supervision">
+                            <blockView label="Browsing" name="navigation">
+                                <view img="nlui-icon-production" label="Overview" name="supervision" />
+                                <view img="nlui-icon-workflow" label="Workflow HeatMap"
+                                    name="workflowHeatmap" />
+                                <view img="nlui-icon-delivery" label="Deliveries"
+                                    name="deliveryOverview" />
+                                <!--        <view label="Packages" name="packageOverview"
+                                img="nlui-icon-cube"/> -->
+                            </blockView>
+                        </universe>
+                        <universe label="Campaign dashboard (campaigns/deliveries)" name="campaign">
+                            <blockView label="Browsing" name="navigation">
+                                <view label="Campaign calendar" name="campaign" />
+                                <view
+                                    applicableIf="HasPackage('nms:centralLocal') AND ((HasNamedRight('central') OR HasNamedRight('local')))"
+                                    label="Campaign packages" name="centralCatalogOverview" />
+                                <view
+                                    applicableIf="HasPackage('nms:centralLocal') AND ((HasNamedRight('central') OR HasNamedRight('local')))"
+                                    label="Campaign orders" name="localOrderOverview" />
+                                <view name="operationOverview" />
+                                <view name="deliveryOverview" />
+                                <view name="webAppOverview" />
+                                <view name="offerOverview" />
+                                <view name="taskOverview" />
+                                <view name="assetOverview" />
+                            </blockView>
+
+                            <blockView label="Create" name="creation">
+                                <view label="A campaign" name="newCampaign" />
+                                <view label="A delivery" name="newDelivery" />
+                                <view label="A task" name="newTask" />
+                            </blockView>
+                        </universe>
+[...]
+                    </universes>
+
+                    <windows>
+                        <window img="nl:home.png" label="Home" name="home" sessionToken="true"
+                            view="home" />
+                    </windows>
+                    <createdBy />
+                    <modifiedBy />
+                </navtree>
+            </pdomDoc>
+        </GetEntityIfMoreRecentResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+```
+
+## Get records
 
 - POST xx with `SOAPAction: xtk:queryDef#ExecuteQuery`
 
@@ -630,21 +816,8 @@ TZif2
 </SOAP-ENV:Envelope>
 ```
 
-## Get x
-
-- POST xx with `SOAPAction: xtk:session#GetOption`
+- Response
 
 ```xml
-<?xml version='1.0'?>
-<SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
-    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ns='urn:xtk:session'
-    xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/'>
-    <SOAP-ENV:Body>
-        <GetOption xmlns='urn:xtk:session'
-            SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'>
-            <__sessiontoken xsi:type='xsd:string'></__sessiontoken>
-            <strName xsi:type='xsd:string'>XtkSecurity_Restrict_EditXML</strName>
-        </GetOption>
-    </SOAP-ENV:Body>
-</SOAP-ENV:Envelope>
+xx
 ```
