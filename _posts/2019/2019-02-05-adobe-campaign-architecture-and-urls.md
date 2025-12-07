@@ -36,6 +36,34 @@ For this guide, we assume Adobe Campaign is installed in:
 
 (Referred to as / in the following sections.)
 
+## Adobe Campaign Namespaces
+
+In Adobe Campaign, **namespaces** are prefixes used to organize schemas, tables, and APIs. They help avoid naming conflicts and logically group related functionalities. Below are the core namespaces and their purposes.
+
+### `NMS`: Neolane Marketing Server
+
+Covers **marketing-related schemas and tables**, such as:
+- **Recipients** (`nms:recipient`): The main table for storing customer profiles.
+- **Deliveries** (`nms:delivery`): Tables for email, SMS, and other campaign deliveries.
+- **Campaigns** (`nms:operation`): Tables for managing marketing campaigns.
+- **Lists** (`nms:group`): Tables for managing recipient groups.
+- **Templates** (`nms:template`): Templates for deliveries and campaigns.
+
+### `XTK`: eXtended ToolKit
+
+Covers **low-level operations**, technical and system-level functionalities, such as:
+
+- **Workflows** (`xtk:workflow`): Workflow schemas and execution.
+- **JavaScript APIs** (`xtk:javascript`): Server-side JavaScript APIs.
+- **Session management** (`xtk:session`): Authentication and session handling.
+- **Data schemas** (`xtk:srcSchema`): Base schemas for extending data models.
+
+### `CRM`: Customer Relationship Management
+
+CRM connector functionalities, such as integrating with external CRM systems (e.g., Salesforce, Microsoft Dynamics):
+- **CRM connectors** (`crm:connector): Configuration for CRM integrations.
+- **Synchronization** (`crm:sync`): Data synchronization between Adobe Campaign and CRM systems.
+
 ## Directory Structure Overview
 
 Adobe Campaign's installation directory contains several key subdirectories:
