@@ -21,7 +21,7 @@ Excerpt here...
 404
 ```
 
-## Logon
+## Logon (with cache)
 
 - `POST /nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:session#Logon`
 
@@ -121,15 +121,28 @@ Excerpt here...
                 SOAP-ENV:encodingStyle='http://xml.apache.org/xml-soap/literalxml'>
                 <cache>
                     <xtk:schema>
-                    <entityCache md5="610172FF368985BB400637C70EDBD29B" pk="xtk:xslt" />
-                    <entityCache md5="42862CBA941BCA9A6BB02452A6156ED5" pk="xtk:workflowTask" />
-                    <entityCache md5="AA9DE0E06006AF1496386832C27067BC" pk="xtk:workflowLog" />
-                    <entityCache md5="38BEE244B12994F67A6B41F50878E397" pk="xtk:workflowJob" />
-                    [...]
-                    <entityCache md5="392E16D4DD441BDBC2620971443B61E7" pk="nms:deliveryDet" />
-                    <entityCache md5="F8D58D81ABB3845169A65A08D74C91C8"
-                        pk="nms:deliveryCustomization" />
-                    <entityCache md5="D98E07FC03616990B16890D042C88229" pk="nms:delivery" />
+                        <entityCache md5="610172FF368985BB400637C70EDBD29B" pk="xtk:xslt" />
+                        <entityCache md5="38BEE244B12994F67A6B41F50878E397" pk="xtk:workflowJob" />
+                        <entityCache md5="D98E07FC03616990B16890D042C88229" pk="nms:delivery" />
+[...]
+                    </xtk:schema>
+                    <xtk:resourceMenu>
+                        <entityCache md5="89FAD2C369CD75DF76B7FF7EC884E50A" pk="xtk:resourceMenu"/>
+                    </xtk:resourceMenu>
+                    <xtk:navtree>
+                        <entityCache md5="B26FF8A8A00AB86F9E4A817FF5FA43FD" pk="xtk:merged"/>
+                    </xtk:navtree>
+                    <xtk:image>
+                        <entityCache md5="2A250799CF49C44882F49E7CD51C3DD8" pk="xtk:xtkcheck.png"/>
+[...]
+                    </xtk:image>
+                    <xtk:funcList>
+                        <entityCache md5="5386823D568849F7186324EDBE0BCCA5" pk="xtk:funcList"/>
+                    </xtk:funcList>
+                    <xtk:form>
+                        <entityCache md5="B2CAC2EE7F488F306A63F4FDAEA13A94" pk="xtk:workflow"/>
+                        <entityCache md5="011D6569B361BD77D49F1F820420DDF6" pk="xtk:srcSchema"/>
+[...]
                     </xtk:form>
                 </cache>
             </domCacheEntities>
@@ -574,7 +587,18 @@ TZif2
 </SOAP-ENV:Envelope>
 ```
 
-## Get folders for first login (or without cache)
+## First login (without cache)
+
+### Sequence
+
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` (xtk:navtree|xtk:merged)
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` (xtk:schema|xtk:form)
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` (xtk:schema|xtk:common)
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` (xtk:schema|xtk:none)
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` (xtk:schema|xtk:folder)
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` (xtk:schema|xtk:queryDef)
+
+### Example with navtree
 
 - POST `SOAPAction: xtk:persist#GetEntityIfMoreRecent`
 
@@ -820,4 +844,36 @@ TZif2
 
 ```xml
 xx
+```
+
+## Logoff
+
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:session#Logoff`
+
+```xml
+<?xml version='1.0'?>
+<SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ns='urn:xtk:session'
+    xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/'>
+    <SOAP-ENV:Body>
+        <Logoff xmlns='urn:xtk:session'
+            SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'>
+            <__sessiontoken xsi:type='xsd:string'></__sessiontoken>
+        </Logoff>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+```
+
+- Response
+
+```xml
+<?xml version='1.0'?>
+<SOAP-ENV:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ns='urn:xtk:session'
+    xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/'>
+    <SOAP-ENV:Body>
+        <LogoffResponse xmlns='urn:xtk:session'
+            SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'></LogoffResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
 ```
