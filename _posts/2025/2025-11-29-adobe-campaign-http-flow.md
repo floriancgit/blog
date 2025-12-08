@@ -591,17 +591,12 @@ TZif2
 
 ### Sequence
 
-- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` (xtk:navtree|xtk:merged)
-
-- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` (xtk:schema|xtk:form)
-
-- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` (xtk:schema|xtk:common)
-
-- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` (xtk:schema|xtk:none)
-
-- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` (xtk:schema|xtk:folder)
-
-- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` (xtk:schema|xtk:queryDef)
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` `xtk:navtree|xtk:merged`
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` `xtk:schema|xtk:form`
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` `xtk:schema|xtk:common`
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` `xtk:schema|xtk:none`
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` `xtk:schema|xtk:folder`
+- POST `/nl/jsp/soaprouter.jsp` with `SOAPAction: xtk:persist#GetEntityIfMoreRecent` `xtk:schema|xtk:queryDef`
 
 ### Example with navtree
 
